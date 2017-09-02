@@ -1,4 +1,4 @@
-define(['jquery','template','util'],function($,template,util){
+define(['jquery','template','util','datepicker','language','uploadify','region'],function($,template,util){
 	//设置导航菜单选中
 	util.setMenu('/main/index');
 	//调后台接口获取所有个人信息
@@ -7,11 +7,31 @@ define(['jquery','template','util'],function($,template,util){
 		url : '/api/teacher/profile',
 		dataType :'json',
 		success :function(data){
-			console.log(data);
+			// console.log(data);
 			//解析数据，渲染页面
 			var html = template('settingsTpl',data.result);
 			$('#settingsInfo').html(html);
-
+			//处理头像上传
+			$('#upfile').uploadify({
+				width:120,
+				height:120,
+				buttonText:'',
+				itemTemplate : '<span></span>',//进度条不显示
+				fileObjName:'tc_avatar',//后台根据这个名称获取信息
+				swf:'/public/assets/uploadify/uploadify.swf',//flash一个工具
+				uploader:'/api/uploader/avatar',// 接收上传文件的后台接口				
+				onUploadSuccess:function(f,data){
+					console.log(data);
+					var data=JSON.parse(data);
+					console.log(data.result.path);
+					//修改图片的URL地址
+					$('.preview img').attr('src',data.result.path);
+				}
+			});
+			// 省市县三级联动
+		    $('#pcd').region({
+		        url : '/public/assets/jquery-region/region.json'
+		    });
 		}
-	})
+	});
 });
