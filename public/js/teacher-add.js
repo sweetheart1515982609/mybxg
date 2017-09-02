@@ -1,4 +1,4 @@
-define(['jquery','template','util','datepicker','language','validate'],function($,template,util){
+define(['jquery','template','util','datepicker','language','validate','form'],function($,template,util){
 	//设置导航菜单选中
 	util.setMenu('/teacher/list');
 	//获取编辑讲师的ID
@@ -30,12 +30,23 @@ define(['jquery','template','util','datepicker','language','validate'],function(
 		submitForm('/api/teacher/add');
 	}
 	//实现表单提交功能
-	//插件做法，submit提交
+	//插件做法，表单验证提交，submit提交
 	function submitForm(url){
 		$('#formId').validate({
 			sendForm : false,
 			valid : function(){
-				console.log(123);
+				// console.log(123);
+				//提交
+				$(this).ajaxSubmit({
+					type :'post',
+					url:url,
+					success:function(data){
+						// console.log(data);
+						if(data.code == 200){
+							location.href='/teacher/list';
+						}
+					}
+				})
 			},
 			description :{
 				tc_name : {
