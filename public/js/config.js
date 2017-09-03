@@ -7,11 +7,11 @@ require.config({
     bootstrap : 'bootstrap/js/bootstrap.min',
     datepicker :'bootstrap-datepicker/js/bootstrap-datepicker.min',
     language : 'bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min',
-    validate :'validate/jquery-validate.min',
+    validate : 'validate/jquery-validate.min',
     form : 'jquery-form/jquery.form',
     uploadify :'uploadify/jquery.uploadify.min',
     region : 'jquery-region/jquery.region',
-   ckeditor : 'ckeditor/ckeditor',
+    ckeditor : 'ckeditor/ckeditor',
     common : '../js/common',
     login : '../js/login',
     index : '../js/index',
@@ -27,8 +27,8 @@ require.config({
     language :{
       deps :['jquery','datepicker']
     },
-    validate :{
-      deps :['jquery']
+    validate : {
+      deps : ['jquery']
     },
     uploadify :{
       deps:['jquery']
